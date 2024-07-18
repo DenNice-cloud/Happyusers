@@ -1,24 +1,13 @@
-/* @font-face {
+@font-face {
   font-family: 'GeneralSans';
   src: url('../public/fonts/GeneralSans-Regular.otf') format('opentype');
   font-weight: 700;
-} */
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-/* #region SaveButton */
-/* .save-layer:active .save-svg {
-  fill: #1C1C1C;
+body {
+  background-color: #F6F6F6;
 }
-
-.save-layer:hover .save-svg {
-  fill: #FF5C00;
-}
-
-.save-layer:focus .save-svg {
-  fill: #787878;
-} */
-/* #endregion */

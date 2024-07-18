@@ -9,6 +9,7 @@ import { ReactComponent as SearchIcon } from "./icons/search.svg";
 import { ReactComponent as HeartIcon } from "./icons/heart_check.svg";
 
 import loadIcon from "./component/UI/IconLoader/iconLoader";
+import UseVariants from "./component/UI/UseVariants/UseVariants";
 
 const App = () => {
   const [click, setClick] = useState(false);
@@ -29,8 +30,11 @@ const App = () => {
   const DoorOpenIcon = loadIcon("DoorOpenIcon");
   const PartialIcon = loadIcon("PartialIcon");
 
+  
+
   return (
-    <div className="App ">
+    <div className="App">
+      
       {/* <header className="flex flex-row justify-between px-4 py-4">
         <div className="flex flex-row space-x-6">
           <div className="font-[800] leading-4 text-base text-center h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex flex-col justify-center">
@@ -111,8 +115,9 @@ const App = () => {
       <OwnTextureButton />
       <SaveButton />
       <MainSearch />
-      
-{/*   <div className="flex py-[10px] px-4 w-full flex items-center">
+      <UseVariants />
+
+      {/* <div className="flex py-[10px] px-4 w-full flex items-center">
           <input
             type="text"
             className={`w-[221px] pr-6 pl-2 py-2 border rounded text-[#1C1C1C] placeholder-[#787878]
@@ -142,35 +147,7 @@ const App = () => {
           />
         </div>
       </div> */}
-      {/* <div className="flex px-3 py-2 font-[500]">
-      <button
-        className="h-7 w-auto rounded flex text-white px-5 	
-          bg-[#FF5C00]
-          focus:bg-[#787878]
-          hover:bg-[#FF8642]
-          items-center justify-center 
-          "
-      >
-        Apply
-      </button>
-    </div> */}
-      {/* <div className="flex px-3 py-2">
-      <button
-        className={`save-layer h-7 w-auto rounded
-        border
-        ${click ? 'text-[#787878]' : 'text-[#1C1C1C]'}
-        hover:border-[#FF5C00] 
-        `}
-        onClick={() => setClick(!click)}
-      >
-        <span className={`flex items-center justify-center px-5 `}>
-          Saved
-          <HeartIcon
-            className="ml-2"
-          />
-        </span>
-      </button>
-    </div> */}
+        
 
       {intersects && (
         <div>
