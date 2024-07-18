@@ -72,7 +72,7 @@ const CubeComponent = ({ setIntersects }) => {
       if (event.target.tagName === "BUTTON") {
         return;
       }
-
+      
       if (faceEdges) {
         scene.remove(faceEdges);
         faceEdges = null;
@@ -86,12 +86,12 @@ const CubeComponent = ({ setIntersects }) => {
       raycaster.setFromCamera(mouse, camera); // прицел от миши к камере
 
       const intersects = raycaster.intersectObject(cube);
-      // setIntersects(intersects);
+      setIntersects(true);
 
       if (intersects.length > 0) {
-        // setSelectedSide(intersects[0].face.materialIndex);
         indexFace = intersects[0].face.materialIndex;
-        // setSelectedFace(indexFace);
+        setSelectedFace(indexFace);
+
         // Скрываем обводку для всех граней
         edges.visible = false;
 
@@ -136,18 +136,24 @@ const CubeComponent = ({ setIntersects }) => {
         // cube.material[selectedFace].color.set(0x0);
 
         scene.add(faceEdges);
+      } else {
+        // Клик был произведен на задний фон
+        console.log("Clicked on the background");
+        setIntersects(false);
       }
     };
 
     const onMouseMove = (event) => {
       if (isMouseDown) {
-        const deltaX = event.clientX - startMouseX;
-        const rotationAmount = (deltaX / window.innerWidth) * Math.PI * 2;
-        cube.rotation.y = previousRotation.y + rotationAmount;
+        if (event.target.tagName === "CANVAS") {
+          const deltaX = event.clientX - startMouseX;
+          const rotationAmount = (deltaX / window.innerWidth) * Math.PI * 2;
+          cube.rotation.y = previousRotation.y + rotationAmount;
 
-        if (faceEdges) {
-          scene.remove(faceEdges);
-          faceEdges = null;
+          if (faceEdges) {
+            scene.remove(faceEdges);
+            faceEdges = null;
+          }
         }
       }
     };
@@ -178,26 +184,17 @@ const CubeComponent = ({ setIntersects }) => {
       window.removeEventListener("mousemove", onMouseMove);
       document.body.removeChild(renderer.domElement);
     };
-  }, []);
+  }, [setIntersects]);
 
   const setColor = (event, value) => {
     event.stopPropagation();
 
-    cube.material[indexFace].color.set(value);
+    if (selectedFace !== null) {
+      cube.material[selectedFace].color.set(value);
+    }
   };
 
-  return (
-    <div>
-      {["red", "green", "blue", "grey"].map((valueColor) => (
-        <button
-          key={valueColor}
-          onClick={(event) => setColor(event, valueColor)}
-        >
-          {valueColor}
-        </button>
-      ))}
-    </div>
-  );
+  return;
 };
 
 export default CubeComponent;
