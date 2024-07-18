@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CubeComponent from "./component/CubeComponent";
 import FilterSearch from "./component/UI/FilterSearch/FilterSearch";
 import ApplyButton from "./component/UI/ApplyButton/ApplyButton";
+import MainSearch from "./component/UI/MainSearch/MainSearch";
 import OwnTextureButton from "./component/UI/OwnTextureButton/OwnTextureButton";
 import SaveButton from "./component/UI/SaveButton/SaveButton";
 import { ReactComponent as SearchIcon } from "./icons/search.svg";
@@ -109,23 +110,39 @@ const App = () => {
       <ApplyButton />
       <OwnTextureButton />
       <SaveButton />
-
-      {/* <div className="flex px-4 py-4">
-        <div className="flex items-center justify-center search-layer relative">
+      <MainSearch />
+      
+{/*   <div className="flex py-[10px] px-4 w-full flex items-center">
           <input
             type="text"
-            className="px-3 py-2 border rounded text-[#1C1C1C]
+            className={`w-[221px] pr-6 pl-2 py-2 border rounded text-[#1C1C1C] placeholder-[#787878]
+                      focus:border-[#FF5C00] focus:text-[#FF5C00] focus:outline-none
+                      hover:border-[#FF8642] hover:text-[#FF8642]`}
+            placeholder="Search"
+          />
+
+          <SearchIcon
+            className="relative right-5 pointer-events-none"
+          />
+      </div> */}
+
+      {/* <div className="flex px-4 py-4">
+        <div className="flex items-center relative">
+          <input
+            type="text"
+            className="pr-7  pl-2 py-2 border rounded text-[#1C1C1C]
                         focus:placeholder-[#787878] focus:border-[#FF5C00] focus:text-[#FF5C00] focus:outline-none
                         hover:placeholder-[#787878] hover:border-[#FF8642] hover:text-[#FF8642] pr-10"
             placeholder="Search"
           />
 
-          <div className="bg-red absolute right-5 ">
-            <SearchIcon className="absolute right-3 top-1/2 -translate-y-1/2 fill-current text-[#1C1C1C] hover:text-[#FF8642] focus:text-[#FF5C00]" />
-          </div>
+          <SearchIcon
+            //  pointer-events-none
+            className="absolute right-2"
+          />
         </div>
       </div> */}
-{/* <div className="flex px-3 py-2 font-[500]">
+      {/* <div className="flex px-3 py-2 font-[500]">
       <button
         className="h-7 w-auto rounded flex text-white px-5 	
           bg-[#FF5C00]
@@ -137,7 +154,7 @@ const App = () => {
         Apply
       </button>
     </div> */}
-    {/* <div className="flex px-3 py-2">
+      {/* <div className="flex px-3 py-2">
       <button
         className={`save-layer h-7 w-auto rounded
         border
@@ -154,7 +171,6 @@ const App = () => {
         </span>
       </button>
     </div> */}
-
 
       {intersects && (
         <div>

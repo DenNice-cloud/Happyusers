@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ReactComponent as SearchIcon } from "../../../icons/search.svg";
 
-const FilterSearch = () => {
+const MainSearch = () => {
   const [color, setColor] = useState("#D9D9D9");
   const [focus, setFocus] = useState(false);
   const [query, setQuery] = useState("");
@@ -33,11 +33,11 @@ const FilterSearch = () => {
   };
 
   return (
-    <div className="flex px-4 py-[10px] flex items-center">
+    <div className="flex py-[10px] px-4 w-full flex items-center">
       <input
         type="text"
         value={query}
-        className={`w-[149px] pr-6 pl-2 py-2 border rounded text-[#1C1C1C] placeholder-[#787878]
+        className={`w-[221px] pr-6 pl-2 py-2 border rounded text-[#1C1C1C] placeholder-[#787878]
                     ${query ? `border-[#1C1C1C]` : `border-[#D9D9D9]`}
                     focus:border-[#FF5C00] focus:text-[#FF5C00] focus:outline-none
                     hover:border-[#FF8642] hover:text-[#FF8642]`}
@@ -48,6 +48,7 @@ const FilterSearch = () => {
         onMouseLeave={handleMouseLeave}
         onChange={handleChange}
       />
+
       <SearchIcon
         className="relative right-5 pointer-events-none"
         fill={color}
@@ -56,4 +57,4 @@ const FilterSearch = () => {
   );
 };
 
-export default FilterSearch;
+export default MainSearch;
