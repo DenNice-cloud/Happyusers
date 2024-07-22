@@ -17,12 +17,12 @@ const CubeComponent = ({ setIntersects }) => {
   // Create the cube
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const materials = [
-    new THREE.MeshPhongMaterial({ color: 0xff0000 }), // red
-    new THREE.MeshPhongMaterial({ color: 0x00ff00 }), // green
-    new THREE.MeshPhongMaterial({ color: 0x0000ff }), // blue
-    new THREE.MeshPhongMaterial({ color: 0xffff00 }), // yellow
-    new THREE.MeshPhongMaterial({ color: 0x00ffff }), // cyan
-    new THREE.MeshPhongMaterial({ color: 0xff00ff }), // magenta
+    new THREE.MeshPhongMaterial({ color: 0xff0000 }), 
+    new THREE.MeshPhongMaterial({ color: 0x00ff00 }), 
+    new THREE.MeshPhongMaterial({ color: 0x0000ff }), 
+    new THREE.MeshPhongMaterial({ color: 0xffff00 }), 
+    new THREE.MeshPhongMaterial({ color: 0x00ffff }), 
+    new THREE.MeshPhongMaterial({ color: 0xff00ff }), 
   ];
   const cube = new THREE.Mesh(geometry, materials);
   scene.add(cube);

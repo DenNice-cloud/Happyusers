@@ -1,39 +1,34 @@
 import React, { useState } from "react";
-import { ReactComponent as HeartIcon } from "../../../icons/heart_check.svg";
+import { Link, useNavigate } from "react-router-dom";
 
 const UseVariants = () => {
   const [activeButton, setActiveButton] = useState("Tiles");
+  const navigate = useNavigate();
 
-  const handleClick = (buttonName) => {
-    setActiveButton(buttonName);
+  const handleClick = (button) => {
+    setActiveButton(button);
+    navigate(`/Textures/${button}`);
   };
 
+  // OBJECT
+  const variants = ["Tiles", "Paint", "Wallpaper"];
+  // OBJECT
+
   return (
-    <div className="bg-white border flex w-[253px] h-[30px] justify-between rounded items-center">
-      <button
-        className={`h-full px-2 rounded ${
-          activeButton === "Tiles" && "bg-[#FECC00]"
-        }`}
-        onClick={() => handleClick("Tiles")}
-      >
-        Tiles
-      </button>
-      <button
-        className={`h-full px-2 rounded ${
-          activeButton === "Paint" && "bg-[#FECC00]"
-        }`}
-        onClick={() => handleClick("Paint")}
-      >
-        Paint
-      </button>
-      <button
-        className={`h-full px-2 rounded ${
-          activeButton === "Wallpaper" && "bg-[#FECC00]"
-        }`}
-        onClick={() => handleClick("Wallpaper")}
-      >
-        Wallpaper
-      </button>
+    <div className="py-4">
+      <div className="bg-[#FFFFFF] flex item-center justify-between">
+        {variants.map(variant => (
+          <Link
+          to={`/Textures/${variant}`}
+          className={`rounded px-3 py-1 ${
+            activeButton === `${variant}` && "bg-[#FECC00] font-bold"
+          }`}
+          onClick={() => handleClick(`${variant}`)}
+        >
+          {variant}
+        </Link>
+        ))}
+      </div>
     </div>
   );
 };

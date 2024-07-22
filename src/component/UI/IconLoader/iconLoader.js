@@ -15,7 +15,19 @@ import { ReactComponent as LightGroupIcon } from '../../../icons/light_group.svg
 import { ReactComponent as DoorOpenIcon } from '../../../icons/door_open.svg';
 import { ReactComponent as PartialIcon } from '../../../icons/stroke_partial.svg';
 
+import { ReactComponent as ExpandIcon } from '../../../icons/expand_more.svg';
+import { ReactComponent as ExpandSmallIcon } from '../../../icons/expand_more_small.svg';
+
+import { ReactComponent as ExpandColorIcon } from '../../../icons/expand_more_color.svg';
+import { ReactComponent as FilterIcon } from '../../../icons/filter_list.svg';
+import { ReactComponent as ExpandSortIcon } from '../../../icons/expand_more_sort.svg';
+
 const iconMap = {
+  ExpandColorIcon,
+  FilterIcon,
+  ExpandSortIcon,
+  ExpandIcon,
+  ExpandSmallIcon,
   LeftIcon,
   RightIcon,
   ShareIcon,
