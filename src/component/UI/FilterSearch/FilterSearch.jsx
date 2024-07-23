@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { ReactComponent as SearchIcon } from "../../../icons/search.svg";
 
-const FilterSearch = () => {
+const FilterSearch = ({queryMain, handleChangeMain}) => {
   const [color, setColor] = useState("#D9D9D9");
   const [focus, setFocus] = useState(false);
-  const [query, setQuery] = useState("");
 
   const handleMouseEnter = () => {
     if (!focus) {
@@ -14,7 +13,7 @@ const FilterSearch = () => {
 
   const handleMouseLeave = () => {
     if (!focus) {
-      setColor(query ? "#1C1C1C" : "#D9D9D9");
+      setColor(queryMain ? "#1C1C1C" : "#D9D9D9");
     }
   };
 
@@ -25,20 +24,16 @@ const FilterSearch = () => {
 
   const handleBlur = () => {
     setFocus(false);
-    setColor(query ? "#1C1C1C" : "#D9D9D9");
-  };
-
-  const handleChange = (event) => {
-    setQuery(event.target.value);
+    setColor(queryMain ? "#1C1C1C" : "#D9D9D9");
   };
 
   return (
     <div className="relative flex items-center py-2">
       <input
         type="text"
-        value={query}
+        value={queryMain}
         className={`w-full pl-2 pr-6 py-2 border rounded text-[#1C1C1C] placeholder-[#787878]
-                    ${query ? `border-[#1C1C1C]` : `border-[#D9D9D9]`}
+                    ${queryMain ? `border-[#1C1C1C]` : `border-[#D9D9D9]`}
                     focus:border-[#FF5C00] focus:text-[#FF5C00] focus:outline-none
                     hover:border-[#FF8642] hover:text-[#FF8642]`}
         placeholder="Search"
@@ -46,7 +41,7 @@ const FilterSearch = () => {
         onBlur={handleBlur}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onChange={handleChange}
+        onChange={handleChangeMain}
       />
 
       <SearchIcon

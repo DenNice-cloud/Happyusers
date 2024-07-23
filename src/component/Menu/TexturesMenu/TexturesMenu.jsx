@@ -4,44 +4,38 @@ import UseVariants from "../../UI/UseVariants/UseVariants";
 import MainSearch from "../../UI/MainSearch/MainSearch";
 import OwnTextureButton from "../../UI/OwnTextureButton/OwnTextureButton";
 import SaveButton from "../../UI/SaveButton/SaveButton";
-import FilterSearch from "../../UI/FilterSearch/FilterSearch";
 import loadIcon from "../../UI/IconLoader/iconLoader";
-import ShowMoreButton from "../../UI/ShowMoreButton/ShowMoreButton";
 import FilterMenu from "../FilterMenu/FilterMenu";
+import FilterSection from "../FilterSection/FilterSection";
 
 const TexturesMenu = () => {
   // OBJECTS
-  const brands = {
-    Hamiltoncarpetone_1: [3214],
-    Marcacorona_1: [7738],
-    Tileshop_1: [9423],
-    Floorlife_1: [5826],
-    Hamiltoncarpetone_2: [3214],
-    Marcacorona_2: [7738],
-    Tileshop_2: [9423],
-    Floorlife_2: [5826],
-    Hamiltoncarpetone_3: [3214],
-  };
+  const brands = [
+    { Hamiltoncarpetone_1: 3214 },
+    { Marcacorona_1: 7738 },
+    { Tileshop_1: 9423 },
+    { Floorlife_1: 5826 },
+    { Hamiltoncarpetone_2: 3214 },
+    { Marcacorona_2: 7738 },
+    { Tileshop_2: 9423 },
+    { Floorlife_2: 5826 },
+    { Hamiltoncarpetone_3: 3214 },
+  ];
 
+  // OBJECTS
   const tiles = [
     "name1 some color",
     "name2 some color",
-    "name2 some color",
-    "name2 some color",
-    "name2 some color",
-    "name2 some color",
-    "name2 some color",
-    "name2 some color",
-    "name2 some color",
+    "name3 some color",
+    "name1 some color",
     "name2 some color",
     "name3 some color",
-    "name3 some color",
-    "name3 some color",
-    "name3 some color",
-    "name3 some color",
+    "name1 some color",
+    "name2 some color",
     "name3 some color",
   ];
 
+  // OBJECTS
   const filters = [
     {
       name: "Colors",
@@ -71,6 +65,10 @@ const TexturesMenu = () => {
       content: {
         small: ["Subway", "4"],
         middle: ["Subway1", "5"],
+        middle2: ["Subway1", "5"],
+        middle3: ["Subway1", "5"],
+        middle4: ["Subway1", "5"],
+        middle5: ["Subway1", "5"],
       },
     },
   ];
@@ -79,9 +77,17 @@ const TexturesMenu = () => {
   const FilterIcon = loadIcon("FilterIcon");
   const ExpandSortIcon = loadIcon("ExpandSortIcon");
 
+  const [displayBrands, setDisplayBrands] = useState([...brands]);
+  const [isSorted, setIsSorted] = useState(false);
+  const [queryMain, setQueryMain] = useState("");
+
   const [isFilterButtonActive, setIsFilterButtonActive] = useState(false);
   const [activeFilters, setActiveFilters] = useState({
-    colorFilter: false,
+    colorsFilter: false,
+    sizeFilter: false,
+    lookFilter: false,
+  });
+  const [showMoreFilters, setShowMoreFilters] = useState({
     sizeFilter: false,
     lookFilter: false,
   });
@@ -93,55 +99,104 @@ const TexturesMenu = () => {
     }));
   };
 
-  const [showMoreFilters, setShowMoreFilters] = useState({
-    sizeFilter: false,
-    lookFilter: false,
-  });
-
   const handleFilterMenuClick = () => {
     setIsFilterButtonActive(!isFilterButtonActive);
+
+    setShowMoreFilters((prevFilters) => ({
+      colorsFilter: false,
+      sizeFilter: false,
+      lookFilter: false,
+    }));
   };
 
-  console.log(isFilterButtonActive);
+  const handleClickSortBrands = () => {
+    let sorted;
+
+    if (isSorted) {
+      sorted = queryMain
+        ? [...brands].filter((brand) =>
+            Object.keys(brand).some((key) =>
+              key.toLowerCase().includes(queryMain)
+            )
+          )
+        : [...brands];
+    } else {
+      sorted = [...displayBrands].sort((a, b) => {
+        const keyA = Object.keys(a)[0];
+        const keyB = Object.keys(b)[0];
+        return keyA.localeCompare(keyB);
+      });
+    }
+
+    setDisplayBrands(sorted);
+    setIsSorted(!isSorted);
+  };
+
+  const handleChangeMain = (event) => {
+    const newQuery = event.target.value;
+    setQueryMain(newQuery);
+
+    let findNewQuery = [...brands];
+
+    if (newQuery) {
+      findNewQuery = [...brands].filter((brand) =>
+        Object.keys(brand).some((key) => key.toLowerCase().includes(newQuery))
+      );
+    }
+
+    setDisplayBrands(findNewQuery);
+  };
 
   return !isFilterButtonActive ? (
-    <div className="absolute flex rounded-lg w-[605px] max-h-[654px] bg-[#FFFFFF] mx-4 my-4 overflow-hidden">
+    <div className="absolute flex rounded-lg w-[605px] min-h-[664px] bg-[#FFFFFF] mx-4 my-4 overflow-hidden">
       {/* Left bar */}
       <div className="p-4">
         <Breadcrumbs />
         <UseVariants />
 
         <div className="flex space-x-4">
-          <MainSearch />
+          <MainSearch
+            queryMain={queryMain}
+            handleChangeMain={handleChangeMain}
+          />
           <SaveButton />
         </div>
 
         <div className="flex py-4 justify-between items-center ">
           <span className="flex font-bold">81 shops</span>
-          <button className="flex items-center">
+          <button
+            className="flex items-center"
+            onClick={handleClickSortBrands}
+          >
             sort by alphabet
-            <ExpandSortIcon className="ml-2" />
+            <ExpandSortIcon
+              className={`ml-2 ${isSorted ? "rotate-180" : ""}`}
+            />
           </button>
         </div>
 
         <ul className="py-4">
-          {Object.keys(brands).map((brand) => (
+          {displayBrands.map((brand) => (
             <li
-              key={brand}
+              key={Object.keys(brand)}
               className="py-2"
             >
-              <span className="font-semibold">{`${brand} `}</span>
-              <span className="text-[#787878]">{`(${brands[brand]})`}</span>
+              <span className="font-semibold">{`${Object.keys(brand)} `}</span>
+              <span className="text-[#787878]">{`(${Object.values(
+                brand
+              )})`}</span>
             </li>
           ))}
         </ul>
 
-        <OwnTextureButton />
+        <div className="flex justify-center">
+          <OwnTextureButton />
+        </div>
       </div>
 
       {/* Right bar 1 */}
       <div className="w-2/3 py-4 relative overflow-hidden">
-        <div className="pr-4 overflow-y-auto h-[400px]">
+        <div className="pr-4 ">
           <div className="flex py-4 justify-between">
             <span className="font-bold text-[#787878]">124,214 items</span>
 
@@ -154,7 +209,7 @@ const TexturesMenu = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-4 absolute pr-2 overflow-y-auto h-[360px]">
             {tiles.map((tile, index) => (
               <div
                 key={index}
@@ -168,80 +223,59 @@ const TexturesMenu = () => {
         </div>
 
         {/* Right bar 2 */}
-        <div className="absolute inset-x-0 bottom-0 bg-[#FFFFFF] overflow-y-auto h-[220px]">
-          {filters.map((filter, index) => (
-            <div
-              key={index}
-              className="pb-2 pr-4"
-            >
-              <button
-                className="flex justify-between items-center w-full"
-                onClick={() =>
-                  handleFilterToggle(`${filter.name.toLowerCase()}Filter`)
-                }
+        <div className="absolute inset-x-0 top-2/3 bg-[#FFFFFF] overflow-y-auto h-[200px]">
+          {filters
+            .slice(
+              0,
+              filters.some((filter) => filter.name === "Colors") ? 2 : 3
+            )
+            .map((filter, index) => (
+              <div
+                key={index}
+                className="pb-2 pr-4"
               >
-                <div className="flex">
-                  <span>{filter.name}</span>
-                  <span className="ml-2 text-[#787878]">
-                    {Object.values(filter.content).length}
-                  </span>
-                </div>
-
-                <ExpandColorIcon />
-              </button>
-
-              {activeFilters[`${filter.name.toLowerCase()}Filter`] &&
-                (filter.name === "Colors" ? (
-                  <div className="flex flex-wrap py-2">
-                    {filter.content.map((color, index) => (
-                      <div
-                        key={index}
-                        className="rounded h-4 w-4 mr-3 mb-2"
-                        style={{ backgroundColor: color }}
-                      ></div>
-                    ))}
+                <button
+                  className="flex justify-between items-center w-full"
+                  onClick={() =>
+                    handleFilterToggle(`${filter.name.toLowerCase()}Filter`)
+                  }
+                >
+                  <div className="flex">
+                    <span>{filter.name}</span>
+                    <span className="ml-2 text-[#787878]">
+                      {Object.values(filter.content).length}
+                    </span>
                   </div>
-                ) : (
-                  <div>
-                    <FilterSearch />
 
-                    {Object.entries(filter.content)
-                      .slice(
-                        0,
-                        showMoreFilters[`${filter.name.toLowerCase()}Filter`]
-                          ? console.error(
-                              `Not enough elements if ${filter.name.toLowerCase()} Filter`
-                            )
-                          : 2
-                      )
-                      .map(([key, content]) => (
-                        <label
-                          key={key}
-                          className="flex items-center"
-                        >
-                          <input
-                            type="checkbox"
-                            className="mr-2"
-                          />
-                          {content[0]}
+                  <ExpandColorIcon
+                    className={`${
+                      activeFilters[`${filter.name.toLowerCase()}Filter`]
+                        ? "rotate-180"
+                        : ""
+                    }`}
+                  />
+                </button>
 
-                          <span className="ml-2 text-[#787878]">
-                            {`(${content[1]})`}
-                          </span>
-                        </label>
+                {activeFilters[`${filter.name.toLowerCase()}Filter`] &&
+                  (filter.name === "Colors" ? (
+                    <div className="flex flex-wrap py-2">
+                      {filter.content.map((color, index) => (
+                        <div
+                          key={index}
+                          className="border rounded h-4 w-4 mr-3 mb-2"
+                          style={{ backgroundColor: color }}
+                        ></div>
                       ))}
-
-                    {Object.entries(filter.content).length > 3 && (
-                        <ShowMoreButton
-                          filter={filter}
-                          setShowMoreFilters={setShowMoreFilters}
-                          showMoreFilters={showMoreFilters}
-                        />
-                    )}
-                  </div>
-                ))}
-            </div>
-          ))}
+                    </div>
+                  ) : (
+                    <FilterSection
+                      filter={filter}
+                      showMoreFilters={showMoreFilters}
+                      setShowMoreFilters={setShowMoreFilters}
+                    />
+                  ))}
+              </div>
+            ))}
         </div>
       </div>
     </div>
@@ -250,7 +284,6 @@ const TexturesMenu = () => {
       filters={filters}
       handleFilterToggle={handleFilterToggle}
       activeFilters={activeFilters}
-      ShowMoreButton={ShowMoreButton}
       showMoreFilters={showMoreFilters}
       setShowMoreFilters={setShowMoreFilters}
       handleFilterMenuClick={handleFilterMenuClick}

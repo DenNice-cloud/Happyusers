@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import CubeComponent from "../UI/CubeComponent/CubeComponent";
-import ApplyButton from "../UI/ApplyButton/ApplyButton";
 import TexturesMenu from "../Menu/TexturesMenu/TexturesMenu";
 
-// import { ReactComponent as SearchIcon } from "./../../icons/search.svg";
-// import { ReactComponent as HeartIcon } from "./../../icons/heart_check.svg";
 import { useNavigate } from "react-router-dom";
 
 import loadIcon from "../UI/IconLoader/iconLoader";
-import { color } from "three/examples/jsm/nodes/Nodes.js";
 
 const App = () => {
-  // const [click, setClick] = useState(false);
   const [intersects, setIntersects] = useState(false);
   const LeftIcon = loadIcon("LeftIcon");
   const RightIcon = loadIcon("RightIcon");
@@ -41,8 +36,6 @@ const App = () => {
       navigate(path);
     }
   };
-
-  console.log(activeButton);
 
 // OBJECT
   const buttons = [

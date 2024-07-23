@@ -2,7 +2,6 @@ import React from "react";
 
 const ApplyButton = () => {
   return (
-    <div className="flex px-3 py-2 font-[400]">
       <button
         className="h-7 w-auto rounded flex text-white px-5 	
           bg-[#FF5C00]
@@ -13,7 +12,6 @@ const ApplyButton = () => {
       >
         Apply
       </button>
-    </div>
   );
 };
 

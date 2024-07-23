@@ -69,7 +69,7 @@ const CubeComponent = ({ setIntersects }) => {
     const onMouseUp = (event) => {
       isMouseDown = false;
 
-      if (event.target.tagName === "BUTTON") {
+      if (event.target.tagName !== "CANVAS") {
         return;
       }
       
@@ -138,7 +138,7 @@ const CubeComponent = ({ setIntersects }) => {
         scene.add(faceEdges);
       } else {
         // Клик был произведен на задний фон
-        console.log("Clicked on the background");
+        // console.log("Clicked on the background");
         setIntersects(false);
       }
     };

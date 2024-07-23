@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const ShowMoreButton = ({ filter, showMoreFilters, setShowMoreFilters }) => {
   const handleShowMoreToggle = (filter) => {
