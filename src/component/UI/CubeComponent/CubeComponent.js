@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
 const CubeComponent = ({
@@ -10,6 +10,7 @@ const CubeComponent = ({
   setSelectedColor,
   color,
   selectedTexture,
+  setSelectedTexture,
 }) => {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
@@ -22,8 +23,6 @@ const CubeComponent = ({
   let faceEdges = null;
 
   const cubeRef = useRef(cube);
-  // const [previousTexture, setPreviousTexture] = useState(null);
-  // const [previousColor, setPreviousColor] = useState(null);
 
   scene.add(cube);
 
@@ -178,27 +177,24 @@ const CubeComponent = ({
   }, [setSelectedFace]);
 
   useEffect(() => {
+    console.log(color);
     if (selectedFace !== null && cubeRef.current) {
       const materials = cubeRef.current.material;
 
       if (selectedTexture ) {
         const loader = new THREE.TextureLoader();
+
         loader.load(selectedTexture, (texture) => {
           if (materials[selectedFace]) {
             materials[selectedFace].map = texture;
-            // materials[selectedFace].color.set(0xffffff);
             materials[selectedFace].needsUpdate = true;
-            // setPreviousTexture(selectedTexture);
-            // setPreviousColor(null);
+            setSelectedTexture('')
           }
         });
-      } else if (color ) {
+      } else if (color) {
         if (materials[selectedFace]) {
-          // materials[selectedFace].map = null;
           materials[selectedFace].color.set(color);
           materials[selectedFace].needsUpdate = true;
-          // setPreviousColor(color);
-          // setPreviousTexture(null);
         }
       }
     }

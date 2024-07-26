@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import CubeComponent from "component/ui/CubeComponent/CubeComponent";
 import TexturesMenu from "component/menu/TexturesMenu/TexturesMenu";
 import * as THREE from "three";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import loadIcon from "component/ui/IconLoader/iconLoader";
 import SceneOrientation from "component/ui/SceneOrientation/SceneOrientation";
 import FloorAndBedroom from "component/ui/FloorAndBedroom/FloorAndBedroom";
 
 const MainPage = () => {
-  // const location = useLocation();
-  // const fullPath = location.pathname;
   const LeftIcon = loadIcon("LeftIcon");
   const RightIcon = loadIcon("RightIcon");
   const ShareIcon = loadIcon("ShareIcon");
@@ -29,7 +27,7 @@ const MainPage = () => {
   const [activeButton, setActiveButton] = useState(null);
   const [selectedFace, setSelectedFace] = useState(null);
   const [color, setSelectedColor] = useState("");
-  console.log(color);
+  const [selectedTexture, setSelectedTexture] = useState("");
 
   const navigate = useNavigate();
 
@@ -47,30 +45,30 @@ const MainPage = () => {
     {
       icon: PartialIcon,
       text: "Textures",
-      key: "Textures",
-      path: "/Textures/Tiles",
-      fill: activeButton === "Textures" ? "#FFFFFF" : "#1C1C1C",
+      key: "textures",
+      path: "/textures/tiles",
+      fill: activeButton === "textures" ? "#FFFFFF" : "#1C1C1C",
     },
     {
       icon: LightGroupIcon,
       text: "Lighting",
-      key: "Lighting",
-      path: "/Lighting",
-      fill: activeButton === "Lighting" ? "#FFFFFF" : "#1C1C1C",
+      key: "lighting",
+      path: "/lighting",
+      fill: activeButton === "lighting" ? "#FFFFFF" : "#1C1C1C",
     },
     {
       icon: ChairIcon,
       text: "Furniture",
-      key: "Furniture",
-      path: "/Furniture",
-      fill: activeButton === "Furniture" ? "#FFFFFF" : "#1C1C1C",
+      key: "furniture",
+      path: "/furniture",
+      fill: activeButton === "furniture" ? "#FFFFFF" : "#1C1C1C",
     },
     {
       icon: DoorOpenIcon,
       text: "Building",
-      key: "Building",
-      path: "/Building",
-      fill: activeButton === "Building" ? "#FFFFFF" : "#1C1C1C",
+      key: "building",
+      path: "/building",
+      fill: activeButton === "building" ? "#FFFFFF" : "#1C1C1C",
     },
   ];
 
@@ -90,24 +88,34 @@ const MainPage = () => {
       <header className="fixed top-0 left-0 right-0">
         <div className="flex flex-row justify-between px-4 py-4">
           <div className="flex flex-row space-x-6">
-            <div className="bg-[#FFFFFF] font-[800] leading-4 text-base text-center h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex flex-col justify-center">
+            <Link
+              to={"/main"}
+              className="bg-[#FFFFFF] font-[800] leading-4 text-base text-center h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex flex-col justify-center"
+            >
               LOGO
               <br />
               ICON
-            </div>
+            </Link>
             <div className="bg-[#FFFFFF] rounded-lg px-4 py-2 ring-1 ring-slate-900/5 shadow-xl flex items-center justify-center">
               About project
               <InfoIcon className="ml-2" />
             </div>
           </div>
+
           <div className="flex flex-row space-x-6">
-            <button className="bg-[#FFFFFF] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex items-center justify-center">
+            <Link
+              to={"/stylus"}
+              className="bg-[#FFFFFF] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex items-center justify-center"
+            >
               <StylusIcon />
-            </button>
-            <button className="bg-[#FFFFFF] font-[300] text-[12px] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex flex-col items-center justify-center">
+            </Link>
+            <Link
+              to={"/notFoundPage"}
+              className="bg-[#FFFFFF] font-[300] text-[12px] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex flex-col items-center justify-center"
+            >
               <LightIcon />
               Lighting
-            </button>
+            </Link>
             <div className="bg-[#FFFFFF] h-16 w-auto rounded-lg px-4 py-8 ring-1 ring-slate-900/5 shadow-xl space-x-2 flex items-center">
               <button className="opacity-25 px-2 py-2 flex items-center justify-center hover:opacity-100">
                 <LeftIcon />
@@ -156,10 +164,20 @@ const MainPage = () => {
           </div>
         </div>
 
-        {activeButton === "Textures" && (
+        {activeButton === "textures" && (
           <TexturesMenu
+            setActiveButton={setActiveButton}
             setSelectedColor={setSelectedColor}
+            setSelectedTexture={setSelectedTexture}
           />
+        )}
+
+        {(activeButton === "lighting" ||
+          activeButton === "furniture" ||
+          activeButton === "building") && (
+          <div className="absolute rounded-lg w-[340px] min-h-[80px] bg-[#FFFFFF] mx-4 my-4 flex justify-center items-center">
+            Unable to load this menu
+          </div>
         )}
       </header>
 
@@ -174,6 +192,8 @@ const MainPage = () => {
         cube={cube}
         setSelectedColor={setSelectedColor}
         color={color}
+        selectedTexture={selectedTexture}
+        setSelectedTexture={setSelectedTexture}
       />
     </div>
   );
