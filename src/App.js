@@ -1,23 +1,16 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainPage from "./component/Pages/MainPage";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import MainPage from './component/pages/MainPage';
+import NotFoundPage from './component/pages/NotFoundPage/NotFoundPage';
 
 const App = () => {
   return (
-    <Router>
-      
-      <div>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-
-          <Route path="/Textures/:Tiles" element={<MainPage />}></Route>
-          <Route path="/Textures/:Paint" element={<MainPage />}></Route>
-          <Route path="/Textures/:Wallpaper" element={<MainPage />}></Route>
-          
-          <Route path="/lighting" element={<MainPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/textures/:path" element={<MainPage />} />
+      {/* <Route path="/:menu" element={<MainPage />} /> */}
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 };
 

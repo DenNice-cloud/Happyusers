@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import CubeComponent from "../UI/CubeComponent/CubeComponent";
-import TexturesMenu from "../Menu/TexturesMenu/TexturesMenu";
+import CubeComponent from "component/ui/CubeComponent/CubeComponent";
+import TexturesMenu from "component/menu/TexturesMenu/TexturesMenu";
+import * as THREE from "three";
+import { useNavigate, useLocation } from "react-router-dom";
+import loadIcon from "component/ui/IconLoader/iconLoader";
+import SceneOrientation from "component/ui/SceneOrientation/SceneOrientation";
+import FloorAndBedroom from "component/ui/FloorAndBedroom/FloorAndBedroom";
 
-import { useNavigate } from "react-router-dom";
-
-import loadIcon from "../UI/IconLoader/iconLoader";
-
-const App = () => {
-  const [intersects, setIntersects] = useState(false);
+const MainPage = () => {
+  // const location = useLocation();
+  // const fullPath = location.pathname;
   const LeftIcon = loadIcon("LeftIcon");
   const RightIcon = loadIcon("RightIcon");
   const ShareIcon = loadIcon("ShareIcon");
@@ -25,6 +27,10 @@ const App = () => {
   const PartialIcon = loadIcon("PartialIcon");
 
   const [activeButton, setActiveButton] = useState(null);
+  const [selectedFace, setSelectedFace] = useState(null);
+  const [color, setSelectedColor] = useState("");
+  console.log(color);
+
   const navigate = useNavigate();
 
   const handleButtonClick = (path, buttonKey) => {
@@ -37,7 +43,6 @@ const App = () => {
     }
   };
 
-// OBJECT
   const buttons = [
     {
       icon: PartialIcon,
@@ -69,8 +74,19 @@ const App = () => {
     },
   ];
 
+  const geometry = new THREE.BoxGeometry(1, 1, 1);
+  const materials = [
+    new THREE.MeshPhongMaterial({ color: 0xff0000 }),
+    new THREE.MeshPhongMaterial({ color: 0x00ff00 }),
+    new THREE.MeshPhongMaterial({ color: 0x0000ff }),
+    new THREE.MeshPhongMaterial({ color: 0xffff00 }),
+    new THREE.MeshPhongMaterial({ color: 0x00ffff }),
+    new THREE.MeshPhongMaterial({ color: 0xff00ff }),
+  ];
+  const cube = new THREE.Mesh(geometry, materials);
+
   return (
-    <div className="App">
+    <div className="MainPage">
       <header className="fixed top-0 left-0 right-0">
         <div className="flex flex-row justify-between px-4 py-4">
           <div className="flex flex-row space-x-6">
@@ -79,23 +95,19 @@ const App = () => {
               <br />
               ICON
             </div>
-
             <div className="bg-[#FFFFFF] rounded-lg px-4 py-2 ring-1 ring-slate-900/5 shadow-xl flex items-center justify-center">
               About project
               <InfoIcon className="ml-2" />
             </div>
           </div>
-
           <div className="flex flex-row space-x-6">
             <button className="bg-[#FFFFFF] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex items-center justify-center">
               <StylusIcon />
             </button>
-
             <button className="bg-[#FFFFFF] font-[300] text-[12px] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex flex-col items-center justify-center">
               <LightIcon />
               Lighting
             </button>
-
             <div className="bg-[#FFFFFF] h-16 w-auto rounded-lg px-4 py-8 ring-1 ring-slate-900/5 shadow-xl space-x-2 flex items-center">
               <button className="opacity-25 px-2 py-2 flex items-center justify-center hover:opacity-100">
                 <LeftIcon />
@@ -113,7 +125,6 @@ const App = () => {
                 <HelpIcon />
               </button>
             </div>
-
             <button className="bg-[#FFFFFF] h-16 w-16 rounded-lg ring-1 ring-slate-900/5 shadow-xl flex items-center justify-center">
               <CloseIcon />
             </button>
@@ -124,7 +135,6 @@ const App = () => {
           <div className="bg-[#FFFFFF] h-16 w-auto rounded-lg px-3 py-8 ring-1 ring-slate-900/5 shadow-xl space-x-2 flex items-center">
             {buttons.map((btn, index) => {
               const IconComponent = btn.icon;
-
               return (
                 <button
                   key={index}
@@ -135,7 +145,10 @@ const App = () => {
                   }`}
                   onClick={() => handleButtonClick(btn.path, btn.key)}
                 >
-                  <IconComponent fill={btn.fill} className='mt-[5px]'/>
+                  <IconComponent
+                    fill={btn.fill}
+                    className="mt-[5px]"
+                  />
                   <span className="text-end">{btn.text}</span>
                 </button>
               );
@@ -143,25 +156,27 @@ const App = () => {
           </div>
         </div>
 
-        {activeButton === "Textures" && <TexturesMenu />}
+        {activeButton === "Textures" && (
+          <TexturesMenu
+            setSelectedColor={setSelectedColor}
+          />
+        )}
       </header>
 
-      {intersects && (
-        <div>
-          {["red", "green", "blue", "grey"].map((valueColor) => (
-            <button
-              key={valueColor}
-              // onClick={(event) => setColor(event, valueColor)}
-            >
-              {valueColor}
-            </button>
-          ))}
-        </div>
-      )}
+      <SceneOrientation />
+      <FloorAndBedroom />
 
-      <CubeComponent setIntersects={setIntersects} />
+      <CubeComponent
+        indexFace={null}
+        selectedFace={selectedFace}
+        geometry={geometry}
+        setSelectedFace={setSelectedFace}
+        cube={cube}
+        setSelectedColor={setSelectedColor}
+        color={color}
+      />
     </div>
   );
 };
 
-export default App;
+export default MainPage;

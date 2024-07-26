@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import loadIcon from "../../UI/IconLoader/iconLoader";
-import ApplyButton from "../../UI/ApplyButton/ApplyButton";
+import loadIcon from "../../ui/IconLoader/iconLoader";
+import ApplyButton from "../../ui/ApplyButton/ApplyButton";
 import FilterSection from "../FilterSection/FilterSection";
 
 const FilterMenu = ({

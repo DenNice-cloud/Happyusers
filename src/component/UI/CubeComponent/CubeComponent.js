@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-const CubeComponent = ({ setIntersects }) => {
-  let indexFace = null;
-  const [selectedFace, setSelectedFace] = useState(indexFace);
+const CubeComponent = ({
+  indexFace,
+  selectedFace,
+  geometry,
+  setSelectedFace,
+  cube,
+  setSelectedColor,
+  color,
+  selectedTexture,
+}) => {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -14,17 +21,10 @@ const CubeComponent = ({ setIntersects }) => {
   camera.position.z = 5;
   let faceEdges = null;
 
-  // Create the cube
-  const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const materials = [
-    new THREE.MeshPhongMaterial({ color: 0xff0000 }), 
-    new THREE.MeshPhongMaterial({ color: 0x00ff00 }), 
-    new THREE.MeshPhongMaterial({ color: 0x0000ff }), 
-    new THREE.MeshPhongMaterial({ color: 0xffff00 }), 
-    new THREE.MeshPhongMaterial({ color: 0x00ffff }), 
-    new THREE.MeshPhongMaterial({ color: 0xff00ff }), 
-  ];
-  const cube = new THREE.Mesh(geometry, materials);
+  const cubeRef = useRef(cube);
+  // const [previousTexture, setPreviousTexture] = useState(null);
+  // const [previousColor, setPreviousColor] = useState(null);
+
   scene.add(cube);
 
   const raycaster = new THREE.Raycaster();
@@ -36,23 +36,21 @@ const CubeComponent = ({ setIntersects }) => {
   const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
 
   useEffect(() => {
+    cubeRef.current = cube;
+
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // Lighting
     const light = new THREE.DirectionalLight(0x404040, 5);
     scene.add(light);
     const ambientLight = new THREE.AmbientLight(0x404040, 35);
     scene.add(ambientLight);
 
-    // Создаем обводку для каждой грани куба
-
     scene.add(edges);
-    edges.visible = false; // Изначально скрываем обводку
+    edges.visible = false;
 
-    // Variables for rotation control
-    const initialRotation = new THREE.Euler(0.5, 0, 0, "XYZ"); // стартовое позиция куба
+    const initialRotation = new THREE.Euler(0.5, 0, 0, "XYZ");
     cube.rotation.copy(initialRotation);
 
     let isMouseDown = false;
@@ -68,78 +66,71 @@ const CubeComponent = ({ setIntersects }) => {
 
     const onMouseUp = (event) => {
       isMouseDown = false;
+      setSelectedColor("");
 
       if (event.target.tagName !== "CANVAS") {
         return;
       }
-      
+
       if (faceEdges) {
         scene.remove(faceEdges);
         faceEdges = null;
       }
 
-      // Detect click on the cube
       mouse.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1
       );
-      raycaster.setFromCamera(mouse, camera); // прицел от миши к камере
+      raycaster.setFromCamera(mouse, camera);
 
       const intersects = raycaster.intersectObject(cube);
-      setIntersects(true);
 
       if (intersects.length > 0) {
         indexFace = intersects[0].face.materialIndex;
         setSelectedFace(indexFace);
 
-        // Скрываем обводку для всех граней
         edges.visible = false;
 
-        // Показываем обводку только для выбранной грани
-        const selectedFace = new THREE.PlaneGeometry(1, 1);
+        const selectedFaceGeometry = new THREE.PlaneGeometry(1, 1);
 
-        // Устанавливаем позицию и ориентацию обводки в зависимости от выбранной грани
         switch (indexFace) {
           case 0:
-            selectedFace.rotateY(-Math.PI / 2);
-            selectedFace.translate(0.5, 0, 0);
+            selectedFaceGeometry.rotateY(-Math.PI / 2);
+            selectedFaceGeometry.translate(0.5, 0, 0);
             break;
           case 1:
-            selectedFace.rotateY(Math.PI / 2);
-            selectedFace.translate(-0.5, 0, 0);
+            selectedFaceGeometry.rotateY(Math.PI / 2);
+            selectedFaceGeometry.translate(-0.5, 0, 0);
             break;
           case 2:
-            selectedFace.rotateX(Math.PI / 2);
-            selectedFace.translate(0, 0.5, 0);
+            selectedFaceGeometry.rotateX(Math.PI / 2);
+            selectedFaceGeometry.translate(0, 0.5, 0);
             break;
           case 3:
-            selectedFace.rotateX(Math.PI / 2);
-            selectedFace.translate(0, -0.5, 0);
+            selectedFaceGeometry.rotateX(Math.PI / 2);
+            selectedFaceGeometry.translate(0, -0.5, 0);
             break;
           case 4:
-            selectedFace.rotateY(0);
-            selectedFace.translate(0, 0, 0.5);
+            selectedFaceGeometry.rotateY(0);
+            selectedFaceGeometry.translate(0, 0, 0.5);
             break;
           case 5:
-            selectedFace.rotateY(Math.PI);
-            selectedFace.translate(0, 0, -0.5);
+            selectedFaceGeometry.rotateY(Math.PI);
+            selectedFaceGeometry.translate(0, 0, -0.5);
             break;
           default:
             break;
         }
 
-        const faceEdgesGeometry = new THREE.EdgesGeometry(selectedFace);
+        const faceEdgesGeometry = new THREE.EdgesGeometry(selectedFaceGeometry);
         faceEdges = new THREE.LineSegments(faceEdgesGeometry, edgesMaterial);
 
         faceEdges.position.copy(cube.position);
         faceEdges.rotation.copy(cube.rotation);
-        // cube.material[selectedFace].color.set(0x0);
 
         scene.add(faceEdges);
       } else {
-        // Клик был произведен на задний фон
-        // console.log("Clicked on the background");
-        setIntersects(false);
+        setSelectedFace(null);
       }
     };
 
@@ -184,17 +175,36 @@ const CubeComponent = ({ setIntersects }) => {
       window.removeEventListener("mousemove", onMouseMove);
       document.body.removeChild(renderer.domElement);
     };
-  }, [setIntersects]);
+  }, [setSelectedFace]);
 
-  const setColor = (event, value) => {
-    event.stopPropagation();
+  useEffect(() => {
+    if (selectedFace !== null && cubeRef.current) {
+      const materials = cubeRef.current.material;
 
-    if (selectedFace !== null) {
-      cube.material[selectedFace].color.set(value);
+      if (selectedTexture ) {
+        const loader = new THREE.TextureLoader();
+        loader.load(selectedTexture, (texture) => {
+          if (materials[selectedFace]) {
+            materials[selectedFace].map = texture;
+            // materials[selectedFace].color.set(0xffffff);
+            materials[selectedFace].needsUpdate = true;
+            // setPreviousTexture(selectedTexture);
+            // setPreviousColor(null);
+          }
+        });
+      } else if (color ) {
+        if (materials[selectedFace]) {
+          // materials[selectedFace].map = null;
+          materials[selectedFace].color.set(color);
+          materials[selectedFace].needsUpdate = true;
+          // setPreviousColor(color);
+          // setPreviousTexture(null);
+        }
+      }
     }
-  };
+  }, [selectedFace, color, selectedTexture]);
 
-  return;
+  return null;
 };
 
 export default CubeComponent;

@@ -1,6 +1,6 @@
-import FilterSearch from "../../UI/FilterSearch/FilterSearch";
+import FilterSearch from "../../ui/FilterSearch/FilterSearch";
 import React, { useState } from 'react';
-import ShowMoreButton from "../../UI/ShowMoreButton/ShowMoreButton";
+import ShowMoreButton from "../../ui/ShowMoreButton/ShowMoreButton";
 
 const FilterSection = ({
   filter,
