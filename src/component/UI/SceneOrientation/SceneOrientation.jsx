@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import loadIcon from "component/ui/IconLoader/iconLoader";
+import { DirectionsIcon } from "component/ui";
 
 const SceneOrientation = () => {
   const [activeButtonOrientation, setActiveButtonOrientation] = useState("3D");
-  const DirectionsIcon = loadIcon("DirectionsIcon");
-
   const handleButtonOrientationClick = (buttonKey) => {
     if (activeButtonOrientation === buttonKey) {
       setActiveButtonOrientation(null);

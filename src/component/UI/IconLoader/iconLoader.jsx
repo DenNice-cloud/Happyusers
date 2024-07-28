@@ -1,4 +1,3 @@
-// iconLoader.js
 import { ReactComponent as LeftIcon } from 'icons/left.svg';
 import { ReactComponent as RightIcon } from 'icons/right.svg';
 import { ReactComponent as ShareIcon } from 'icons/share.svg';
@@ -25,7 +24,7 @@ import { ReactComponent as ExpandSortIcon } from 'icons/expand_more_sort.svg';
 import { ReactComponent as DirectionsIcon } from 'icons/directions_walk.svg';
 import { ReactComponent as NestMultiIcon } from 'icons/nest_multi_room.svg';
 
-const iconMap = {
+export {
   NestMultiIcon,
   DirectionsIcon,
   ExpandColorIcon,
@@ -48,8 +47,4 @@ const iconMap = {
   ChairIcon
 };
 
-const loadIcon = (iconName) => {
-  return iconMap[iconName] || null;
-};
-
-export default loadIcon;
+// export default icons;

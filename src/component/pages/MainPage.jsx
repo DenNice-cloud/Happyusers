@@ -1,29 +1,27 @@
 import React, { useState } from "react";
-import CubeComponent from "component/ui/CubeComponent/CubeComponent";
-import TexturesMenu from "component/menu/TexturesMenu/TexturesMenu";
 import * as THREE from "three";
 import { useNavigate, Link } from "react-router-dom";
-import loadIcon from "component/ui/IconLoader/iconLoader";
-import SceneOrientation from "component/ui/SceneOrientation/SceneOrientation";
-import FloorAndBedroom from "component/ui/FloorAndBedroom/FloorAndBedroom";
+import {
+  CubeComponent,
+  SceneOrientation,
+  FloorAndBedroom,
+  LeftIcon,
+  RightIcon,
+  ShareIcon,
+  AddPhotoIcon,
+  HelpIcon,
+  StylusIcon,
+  LightIcon,
+  CloseIcon,
+  InfoIcon,
+  ChairIcon,
+  LightGroupIcon,
+  DoorOpenIcon,
+  PartialIcon,
+} from "component/ui";
+import { TexturesMenu } from "component/menu";
 
 const MainPage = () => {
-  const LeftIcon = loadIcon("LeftIcon");
-  const RightIcon = loadIcon("RightIcon");
-  const ShareIcon = loadIcon("ShareIcon");
-  const AddPhotoIcon = loadIcon("AddPhotoIcon");
-  const HelpIcon = loadIcon("HelpIcon");
-
-  const StylusIcon = loadIcon("StylusIcon");
-  const LightIcon = loadIcon("LightIcon");
-  const CloseIcon = loadIcon("CloseIcon");
-  const InfoIcon = loadIcon("InfoIcon");
-
-  const ChairIcon = loadIcon("ChairIcon");
-  const LightGroupIcon = loadIcon("LightGroupIcon");
-  const DoorOpenIcon = loadIcon("DoorOpenIcon");
-  const PartialIcon = loadIcon("PartialIcon");
-
   const [activeButton, setActiveButton] = useState(null);
   const [selectedFace, setSelectedFace] = useState(null);
   const [color, setSelectedColor] = useState("");

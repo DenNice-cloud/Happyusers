@@ -1,11 +1,8 @@
 import React from "react";
-import loadIcon from "../IconLoader/iconLoader";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ExpandIcon, ExpandSmallIcon } from "component/ui";
 
 const Breadcrumbs = ({ setActiveButton }) => {
-  const ExpandIcon = loadIcon("ExpandIcon");
-  const ExpandSmallIcon = loadIcon("ExpandSmallIcon");
-
   const location = useLocation();
   const { pathname } = location;
   const parts = pathname.split("/").filter((part) => part !== "");

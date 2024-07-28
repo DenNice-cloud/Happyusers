@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Breadcrumbs from "../../ui/Breadcrumbs/Breadcrumbs";
-import UseVariants from "../../ui/UseVariants/UseVariants";
-import MainSearch from "../../ui/MainSearch/MainSearch";
-import OwnTextureButton from "../../ui/OwnTextureButton/OwnTextureButton";
-import SaveButton from "../../ui/SaveButton/SaveButton";
-import loadIcon from "../../ui/IconLoader/iconLoader";
-import FilterMenu from "../FilterMenu/FilterMenu";
-import FilterSection from "../FilterSection/FilterSection";
 import { useLocation } from "react-router-dom";
+import {
+  SaveButton,
+  OwnTextureButton,
+  MainSearch,
+  UseVariants,
+  Breadcrumbs,
+  ExpandColorIcon,
+  FilterIcon,
+  ExpandSortIcon,
+} from "component/ui";
+import { FilterMenu } from "component/menu";
+import { FilterSection } from "component/menu";
 
-const TexturesMenu = ({ setSelectedTexture, setActiveButton, setSelectedColor }) => {
+const TexturesMenu = ({
+  setSelectedTexture,
+  setActiveButton,
+  setSelectedColor,
+}) => {
+
   const location = useLocation();
   const pathSegments = location.pathname.split("/").filter(Boolean);
   const lastSegment = pathSegments[pathSegments.length - 1];
@@ -47,9 +56,9 @@ const TexturesMenu = ({ setSelectedTexture, setActiveButton, setSelectedColor })
 
   const { textures = [], filters = [], brands = [] } = data || {};
 
-  const ExpandColorIcon = loadIcon("ExpandColorIcon");
-  const FilterIcon = loadIcon("FilterIcon");
-  const ExpandSortIcon = loadIcon("ExpandSortIcon");
+  // const ExpandColorIcon = loadIcon("ExpandColorIcon");
+  // const FilterIcon = loadIcon("FilterIcon");
+  // const ExpandSortIcon = loadIcon("ExpandSortIcon");
 
   const [isSorted, setIsSorted] = useState(false);
   const [queryMain, setQueryMain] = useState("");
@@ -116,7 +125,7 @@ const TexturesMenu = ({ setSelectedTexture, setActiveButton, setSelectedColor })
         <div className="p-4">
           <Breadcrumbs setActiveButton={setActiveButton} />
           <UseVariants />
-          
+
           <div>Not found items</div>
         </div>
       ) : (
