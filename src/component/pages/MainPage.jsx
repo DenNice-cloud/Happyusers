@@ -141,6 +141,7 @@ const MainPage = () => {
           <div className="bg-[#FFFFFF] h-16 w-auto rounded-lg px-3 py-8 ring-1 ring-slate-900/5 shadow-xl space-x-2 flex items-center">
             {buttons.map((btn, index) => {
               const IconComponent = btn.icon;
+              
               return (
                 <button
                   key={index}

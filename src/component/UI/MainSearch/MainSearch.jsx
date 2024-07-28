@@ -1,30 +1,30 @@
 import React, { useState } from "react";
-import { ReactComponent as SearchIcon } from "../../../icons/search.svg";
+import { ReactComponent as SearchIcon } from "icons/search.svg";
 
 const MainSearch = ({ queryMain, handleChangeMain }) => {
-  const [color, setColor] = useState("#D9D9D9");
+  const [colorInput, setColorInput] = useState("#D9D9D9");
   const [focus, setFocus] = useState(false);
 
   const handleMouseEnter = () => {
     if (!focus) {
-      setColor("#FF8642");
+      setColorInput("#FF8642");
     }
   };
 
   const handleMouseLeave = () => {
     if (!focus) {
-      setColor(queryMain ? "#1C1C1C" : "#D9D9D9");
+      setColorInput(queryMain ? "#1C1C1C" : "#D9D9D9");
     }
   };
 
   const handleFocus = () => {
     setFocus(true);
-    setColor("#FF5C00");
+    setColorInput("#FF5C00");
   };
 
   const handleBlur = () => {
     setFocus(false);
-    setColor(queryMain ? "#1C1C1C" : "#D9D9D9");
+    setColorInput(queryMain ? "#1C1C1C" : "#D9D9D9");
   };
 
   return (
@@ -44,7 +44,7 @@ const MainSearch = ({ queryMain, handleChangeMain }) => {
         onChange={handleChangeMain}
       />
       <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-        <SearchIcon fill={color} />
+        <SearchIcon fill={colorInput} />
       </div>
     </div>
   );

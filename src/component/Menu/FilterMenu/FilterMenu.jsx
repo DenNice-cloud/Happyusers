@@ -1,8 +1,4 @@
 import React from "react";
-// import loadIcon from "../../ui/IconLoader/IconLoader";
-// import ApplyButton from "../../ui/ApplyButton/ApplyButton";
-// import FilterSection from "../FilterSection/FilterSection";
-
 import { FilterSection } from "component/menu";
 import { ApplyButton, ExpandIcon, ExpandColorIcon } from "component/ui";
 
@@ -14,11 +10,6 @@ const FilterMenu = ({
   setShowMoreFilters,
   handleFilterMenuClick,
 }) => {
-  // const {
-  //   ExpandColorIcon,
-  //   ExpandIcon,
-  // } = IconLoader;
-
   return (
     <div className="absolute rounded-lg w-[279px] min-h-[664px] bg-white mx-4 my-4 overflow-hidden py-4 pl-4 pr-2 flex flex-col">
       <button

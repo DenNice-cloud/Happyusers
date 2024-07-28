@@ -66,6 +66,7 @@ const CubeComponent = ({
     const onMouseUp = (event) => {
       isMouseDown = false;
       setSelectedColor("");
+      setSelectedTexture("");
 
       if (event.target.tagName !== "CANVAS") {
         return;
@@ -177,18 +178,16 @@ const CubeComponent = ({
   }, [setSelectedFace]);
 
   useEffect(() => {
-    console.log(color);
     if (selectedFace !== null && cubeRef.current) {
       const materials = cubeRef.current.material;
 
-      if (selectedTexture ) {
+      if (selectedTexture) {
         const loader = new THREE.TextureLoader();
 
         loader.load(selectedTexture, (texture) => {
           if (materials[selectedFace]) {
             materials[selectedFace].map = texture;
             materials[selectedFace].needsUpdate = true;
-            setSelectedTexture('')
           }
         });
       } else if (color) {

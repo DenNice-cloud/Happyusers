@@ -46,5 +46,3 @@ export {
   LightGroupIcon,
   ChairIcon
 };
-
-// export default icons;

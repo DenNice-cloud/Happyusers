@@ -10,8 +10,7 @@ import {
   FilterIcon,
   ExpandSortIcon,
 } from "component/ui";
-import { FilterMenu } from "component/menu";
-import { FilterSection } from "component/menu";
+import { FilterMenu, FilterSection } from "component/menu";
 
 const TexturesMenu = ({
   setSelectedTexture,
@@ -44,7 +43,7 @@ const TexturesMenu = ({
 
       const unifiedData = {
         textures: lastSegment === "tiles" ? result.tiles : result.paint,
-        filters: result.filters || [],
+        filters: lastSegment === "tiles" ? result.tilesFilters : result.paintFilters,
         brands: result.brands || [],
       };
       setData(unifiedData);
@@ -55,11 +54,6 @@ const TexturesMenu = ({
   }, [lastSegment]);
 
   const { textures = [], filters = [], brands = [] } = data || {};
-
-  // const ExpandColorIcon = loadIcon("ExpandColorIcon");
-  // const FilterIcon = loadIcon("FilterIcon");
-  // const ExpandSortIcon = loadIcon("ExpandSortIcon");
-
   const [isSorted, setIsSorted] = useState(false);
   const [queryMain, setQueryMain] = useState("");
 
@@ -155,7 +149,7 @@ const TexturesMenu = ({
               </button>
             </div>
 
-            <ul className="py-4">
+            <ul className="py-2 overflow-y-auto h-[370px]">
               {displayBrands.map((brand) => (
                 <li
                   key={Object.keys(brand)}
@@ -171,7 +165,7 @@ const TexturesMenu = ({
               ))}
             </ul>
 
-            <div className="flex justify-center">
+            <div className="flex justify-center pt-4">
               <OwnTextureButton />
             </div>
           </div>

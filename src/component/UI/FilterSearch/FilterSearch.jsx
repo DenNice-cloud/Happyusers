@@ -1,30 +1,30 @@
 import React, { useState } from "react";
-import { ReactComponent as SearchIcon } from "../../../icons/search.svg";
+import { ReactComponent as SearchIcon } from "icons/search.svg";
 
 const FilterSearch = ({queryMain, handleChangeMain}) => {
-  const [color, setColor] = useState("#D9D9D9");
+  const [colorFilter, setColorFilter] = useState("#D9D9D9");
   const [focus, setFocus] = useState(false);
 
   const handleMouseEnter = () => {
     if (!focus) {
-      setColor("#FF8642");
+      setColorFilter("#FF8642");
     }
   };
 
   const handleMouseLeave = () => {
     if (!focus) {
-      setColor(queryMain ? "#1C1C1C" : "#D9D9D9");
+      setColorFilter(queryMain ? "#1C1C1C" : "#D9D9D9");
     }
   };
 
   const handleFocus = () => {
     setFocus(true);
-    setColor("#FF5C00");
+    setColorFilter("#FF5C00");
   };
 
   const handleBlur = () => {
     setFocus(false);
-    setColor(queryMain ? "#1C1C1C" : "#D9D9D9");
+    setColorFilter(queryMain ? "#1C1C1C" : "#D9D9D9");
   };
 
   return (
@@ -46,7 +46,7 @@ const FilterSearch = ({queryMain, handleChangeMain}) => {
 
       <SearchIcon
         className="absolute right-3 pointer-events-none"
-        fill={color}
+        fill={colorFilter}
       />
     </div>
   );
