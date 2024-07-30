@@ -1,11 +1,12 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { MainPage, NotFoundPage } from 'component/pages';
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainPage />} />
+      <Route path="/Happyusers" element={<Navigate to="/" replace />} />
 
       <Route path="/textures/:path" element={<MainPage />} />
       <Route path="/lighting" element={<MainPage />} />
