@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-const UseVariants = () => {
-  const [activeButton, setActiveButton] = useState("tiles");
+const VariantButtons = () => {
+  const location = useLocation();
+  const pathSegments = location.pathname.split("/").filter(Boolean);
+  const lastSegment = pathSegments[pathSegments.length - 1];
+  const [activeButton, setActiveButton] = useState(lastSegment);
   const navigate = useNavigate();
 
   const handleClick = (button) => {
@@ -34,4 +37,4 @@ const UseVariants = () => {
   );
 };
 
-export default UseVariants;
+export default VariantButtons;

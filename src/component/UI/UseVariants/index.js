@@ -1,1 +1,1 @@
-export * from "./UseVariants";
+export * from "./VariantButtons";
