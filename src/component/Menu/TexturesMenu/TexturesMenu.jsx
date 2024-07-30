@@ -32,9 +32,9 @@ const TexturesMenu = ({
       setMenuFound(false);
 
       if (lastSegment === "tiles") {
-        response = await fetch("http://localhost:3005/textures/tiles");
+        response = await fetch("https://happyusersback-production.up.railway.app/textures/tiles");
       } else if (lastSegment === "paint") {
-        response = await fetch("http://localhost:3005/textures/paint");
+        response = await fetch("https://happyusersback-production.up.railway.app/textures/paint");
       } else {
         setMenuFound(true);
         return;
