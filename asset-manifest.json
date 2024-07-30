@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Happyusers/static/css/main.f46e8ce0.css",
-    "main.js": "/Happyusers/static/js/main.0e6fa7bc.js",
+    "main.js": "/Happyusers/static/js/main.4e8f29b3.js",
     "static/media/GeneralSans-Regular.otf": "/Happyusers/static/media/GeneralSans-Regular.8b8c806d335280408bfe.otf",
     "static/media/help.svg": "/Happyusers/static/media/help.f44f30cc9c4a929054ce210cf56825f9.svg",
     "static/media/share.svg": "/Happyusers/static/media/share.4fd5ccb11d64f0084f1450f016dbfa1a.svg",
@@ -27,10 +27,10 @@
     "static/media/filter_list.svg": "/Happyusers/static/media/filter_list.c2881ab17e185207292ffa578d7cdf56.svg",
     "static/media/expand_more_sort.svg": "/Happyusers/static/media/expand_more_sort.67e4850a9218075b8dc6f2df3d4f91b2.svg",
     "main.f46e8ce0.css.map": "/Happyusers/static/css/main.f46e8ce0.css.map",
-    "main.0e6fa7bc.js.map": "/Happyusers/static/js/main.0e6fa7bc.js.map"
+    "main.4e8f29b3.js.map": "/Happyusers/static/js/main.4e8f29b3.js.map"
   },
   "entrypoints": [
     "static/css/main.f46e8ce0.css",
-    "static/js/main.0e6fa7bc.js"
+    "static/js/main.4e8f29b3.js"
   ]
 }
